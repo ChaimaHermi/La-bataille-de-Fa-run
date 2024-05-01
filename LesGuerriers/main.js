@@ -15,3 +15,5 @@ degats = elfe.attaque();
 console.log('Dégâts : ' + degats);
 nain.defense(degats);
 console.log('Nain subit ' + degats + ' de dégât et voit ses PV descendre à ' + nain.pv + '.');*/
+
+//let ch = new window.Chateau()

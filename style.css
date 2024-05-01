@@ -1,0 +1,156 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+  min-height : 100vh;
+  margin : 0;
+  background-image: url("C:\\Users\\dell\\Desktop\\jeu java script\\Assets\\background.jpg");
+  background-size: cover;
+  background-attachment : fixed;
+  background-repeat: no-repeat;
+  font-family: 'Germania One', cursive;
+  font-size: 2.5vw;
+  line-height : 1.4;
+}
+
+img {
+  max-width: 100%;
+  height : auto;
+}
+
+figure {
+  margin : 0;
+}
+
+header {
+  position : fixed;
+  top : 1rem;
+  left : 2.5rem; right : 2.5rem;
+  z-index : 100;
+  font-size : 1.1vmax;
+}
+
+header * {
+  margin : 0;
+}
+
+h1 {
+  font-size: 3vmax;
+}
+
+h2, h3 {
+  margin : 0;
+  text-align: center;
+}
+h2 {
+  font-size: 2vw;
+}
+
+h3 {
+  margin : 1em 5% 0;
+  padding-top : 1rem;
+  border-top : 2px dotted black;
+  font-size: 16px;
+}
+
+
+
+.game{
+  position : absolute;
+  z-index : 50;
+  top : calc( 3rem + ( 4.1vmax * 1.4 ) );
+  left : 5rem; right : 5rem;
+  height : 80vh;
+  overflow-y : auto;
+  padding-top : 5vw;
+  
+  background: rgba(255,255,255,0.6);
+  border-radius: 1rem;
+}
+
+
+.game-state, .game-round   {
+  display : flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+
+
+.game-state_player {
+  text-align: center;
+
+}
+
+.game-state_player figcaption {
+  position : relative;
+  font-size: 15px;
+}
+
+.game-state_player progress {
+  position : absolute;
+  width : 15vmax;
+  z-index : -1;
+  left : 50%; right : 0;
+  margin-left : -7.5vmax;
+  top : 0;
+}
+
+
+.game-state_player > img {
+  width : 15vmax;
+}
+
+
+
+
+footer {
+  text-align: center;
+}
+
+
+@keyframes cloudPassingBy {
+    from { transform: translateX(0px); }
+    to { transform: translateX(600%); }
+}
+
+
+#titre{
+  color : rgb(11, 94, 158);
+}
+
+ 
+
+.players {
+  margin-top: 10px;
+  display: flex; /* Utiliser flexbox */
+  justify-content: center; /* Centrer les éléments horizontalement */
+  align-items: center; /* Centrer les éléments verticalement */
+}
+
+.players img {
+  margin: 0 10px; /* Espacement entre les images */
+  height: 50px;
+  width: 50px;
+}
+
+
+.cell {
+  border: 1px solid black;
+  width: 80px;
+  height: 300px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+  display: inline-block;
+}
+
+.plateau {
+  width: auto;
+  height: auto;
+}
