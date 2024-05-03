@@ -1,6 +1,7 @@
 class ChefNain extends Nain {
-    constructor() {
-        super();
+    constructor(equipe) {
+        super(equipe);
+        this.type = 'ChefNain';
         this.cout = 3; // Coût d'entraînement pour un Chef Nain
     }
 }

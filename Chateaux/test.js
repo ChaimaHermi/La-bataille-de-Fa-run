@@ -4,7 +4,7 @@
 
 // Création des châteaux
 
-let chateauRouge = new window.Chateau();
+/*let chateauRouge = new window.Chateau();
 
 let chateauBleu = new window.Chateau();
 
@@ -24,4 +24,4 @@ for (let i = 0; i < 4; i++) {
     console.log('Tour ' + (i + 1) + ' : château possède ' + chateauRouge.ressources + ' ressources');
     chateauRouge.tour();
     console.log('Etat final : château ' + chateauRouge.ressources + ' ressources, ' + chateauRouge.GuerriersEntrainés.length + ' guerriers prêts à se battre');
-}
+}*/

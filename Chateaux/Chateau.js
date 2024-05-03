@@ -1,5 +1,6 @@
 class Chateau {
-    constructor() {
+    constructor(couleur) {
+        this.couleur = couleur;
         this.GuerriersEntrainés = []; // Liste des guerriers entraînés
         this.ressources = 3; // Nombre initial de ressources
         this.fileNovice = []; // File d'attente pour l'entraînement
@@ -16,41 +17,30 @@ class Chateau {
         let guerrier;
         switch (type) {
             case 'Nain':
-                guerrier = new Nain();
+                guerrier = new Nain(this.couleur);
                 break;
             case 'Elfe':
-                guerrier = new Elfe();
+                guerrier = new Elfe(this.couleur);
                 break;
             case 'Chef nain':
-                guerrier = new ChefNain();
+                guerrier = new ChefNain(this.couleur);
                 break;
             case 'Chef elfe':
-                guerrier = new ChefElfe();
+                guerrier = new ChefElfe(this.couleur);
                 break;
             default:
-                guerrier = new Guerrier();
+                guerrier = new Guerrier(type, this.couleur);
         }
         // Vérifie si suffisamment de ressources sont disponibles pour l'entraînement
         if (this.ressources >= guerrier.cout) {
             this.ressources -= guerrier.cout; // Déduit le coût de l'entraînement des ressources
             this.GuerriersEntrainés.push(guerrier); // Ajoute le guerrier à la liste des guerriers entraînés
             this.fileNovice.shift(); // Retire le guerrier de la file d'attente
-            return true; // Indique qu'un guerrier a été entraîné
         } else {
-            console.log('Ressources insuffisantes pour entraîner ' + type);
-            return false; // Indique qu'aucun guerrier n'a été entraîné
+            console.log('Pas assez de ressources pour entraîner un ' + type);
         }
-    }
-
-    // Méthode appelée à chaque tour du jeu
-    tour() {
-        // Entraîne autant de guerriers que possible
-        while (this.fileNovice.length > 0 && this.entrainement()) {
-            // Rien à faire ici, la boucle continue tant qu'il y a des guerriers à entraîner et des ressources disponibles
-        }
-        // Récupère une ressource
-        this.ressources += 1;
     }
 }
+
 
 window.Chateau = Chateau;

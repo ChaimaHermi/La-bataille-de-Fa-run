@@ -1,5 +1,7 @@
 class Guerrier {
-    constructor() {
+    constructor(type, equipe) {
+        this.type = type;
+        this.equipe = equipe;
         this.force = 10;
         this.pv = 100;
         this.cout = 1; // Coût d'entraînement pour un guerrier de base
@@ -20,5 +22,4 @@ class Guerrier {
         }
     }
 }
-
 window.Guerrier = Guerrier;

@@ -1,6 +1,6 @@
 class Nain extends Guerrier {
-    constructor() {
-        super();
+    constructor(equipe) {
+        super('Nain', equipe);
         this.cout = 1; // Coût d'entraînement pour un Nain
     }
 
@@ -8,5 +8,4 @@ class Nain extends Guerrier {
         super.defense(degats / 2);
     }
 }
-
 window.Nain = Nain;

@@ -1,7 +1,8 @@
+
 class ChefElfe extends Elfe {
-    constructor() {
-        super();
-        this.force *= 2;
+    constructor(equipe) {
+        super(equipe);
+        this.type = 'ChefElfe';
         this.cout = 4; // Coût d'entraînement pour un Chef Elfe
     }
 }
