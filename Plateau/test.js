@@ -1,34 +1,60 @@
-// Créez une instance de la classe Plateau
-let plateau = new Plateau(6);
+// Crée un plateau de 10 carreaux
+let plateau = new Plateau(10);
 
-// Créez quelques équipes
-let equipeBleue = new Chateau('bleu');
-let equipeRouge = new Chateau('rouge');
+// Crée deux châteaux
+let chateauBleu = new Chateau('bleu');
+let chateauRouge = new Chateau('rouge');
+// Ajouter des guerriers à la file d'attente de chaque château
+chateauBleu.ajouterAFile('ChefNain');
+chateauBleu.ajouterAFile('Nain');
+chateauBleu.ajouterAFile('Nain');
 
-// Ajoutez quelques guerriers à l'équipe bleue
-equipeBleue.ajouterAFile('Elfe');
-equipeBleue.ajouterAFile('Nain');
-equipeBleue.entrainement();
-equipeBleue.entrainement();
+chateauRouge.ajouterAFile('ChefElf');
+chateauRouge.ajouterAFile('ChefNain');
+chateauRouge.ajouterAFile('ChefNain');
 
-// Ajoutez quelques guerriers à l'équipe rouge
-equipeRouge.ajouterAFile('Chef nain');
-equipeRouge.ajouterAFile('Chef elfe');
-equipeRouge.entrainement();
-equipeRouge.entrainement();
 
-// Placez les guerriers sur le plateau
-for (let i = 0; i < equipeBleue.GuerriersEntrainés.length; i++) {
-    console.log(equipeBleue.GuerriersEntrainés[i]);
-    plateau.ajouterGuerrier(equipeBleue.GuerriersEntrainés[i], i);
+// Entraîne tous les guerriers au début
+while (chateauBleu.ressources > 0) {
+    chateauBleu.entrainement();
+}
+while (chateauRouge.ressources > 0) {
+    chateauRouge.entrainement();
 }
 
-for (let i = 0; i < equipeRouge.GuerriersEntrainés.length; i++) {
-    plateau.ajouterGuerrier(equipeRouge.GuerriersEntrainés[i], 5 - i);
+// Fait avancer les guerriers, gère les combats, ajoute des ressources, entraîne des guerriers et les place sur le plateau pendant 5 tours
+// Un tour de jeu :
+// Un tour de jeu :
+for (let i = 0; i < 20; i++) {
+    console.log('Tour ' + (i + 1) + ' :');
+    
+    // Les châteaux placent les guerriers sur le plateau s'ils en ont
+    if (chateauBleu.GuerriersEntrainés.length > 0) {
+        let guerrierBleu = chateauBleu.GuerriersEntrainés.shift();
+        plateau.ajouterGuerrier(guerrierBleu, 0);
+    }
+    if (chateauRouge.GuerriersEntrainés.length > 0) {
+        let guerrierRouge = chateauRouge.GuerriersEntrainés.shift();
+        plateau.ajouterGuerrier(guerrierRouge, plateau.carreaux.length - 1);
+    }
+    
+    // Les guerriers sur le plateau avancent d'un carreau
+    plateau.avancerGuerriers();
+    
+    // Si un carreau contient des guerriers des deux équipes, un combat est lancé
+    plateau.gererCombats();
+    
+    // Affiche l'état du plateau
+    plateau.afficherPlateau();
+    
+    // Ajoute des ressources pour le prochain tour
+    chateauBleu.ajouterRessources();
+    chateauRouge.ajouterRessources();
+    
+    // Vérifie si le jeu est terminé
+    let vainqueur = plateau.verifierVictoire();
+    if (vainqueur !== null) {
+        console.log('Le jeu est terminé, les ' + vainqueur + ' ont gagné');
+        break;
+    }
 }
-
-// Déplacez les guerriers en parallèle
-plateau.deplacerGuerriersEnParallele();
-
-// Affichez le plateau
-plateau.afficherPlateau();

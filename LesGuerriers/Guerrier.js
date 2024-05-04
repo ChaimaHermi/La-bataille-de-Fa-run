@@ -18,7 +18,7 @@ class Guerrier {
     defense(degats) {
         this.pv -= degats;
         if (this.pv <= 0) {
-            console.log('Le ' + this.constructor.name + ' est mort');
+            console.log('Le ' +this.equipe+ this.type + ' est mort');
         }
     }
 }

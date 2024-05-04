@@ -36,9 +36,18 @@ class Chateau {
             this.ressources -= guerrier.cout; // Déduit le coût de l'entraînement des ressources
             this.GuerriersEntrainés.push(guerrier); // Ajoute le guerrier à la liste des guerriers entraînés
             this.fileNovice.shift(); // Retire le guerrier de la file d'attente
+            return guerrier; // Renvoie le guerrier formé
         } else {
             console.log('Pas assez de ressources pour entraîner un ' + type);
+            return null;
         }
+    }
+
+
+
+     // Ajoute une ressource à chaque tour
+     ajouterRessources() {
+        this.ressources += 1;
     }
 }
 
