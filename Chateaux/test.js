@@ -1,8 +1,8 @@
 // Création d'un château
-let chateau = new Chateau('Bleu');
+//let chateau = new Chateau('Bleu');
 
 // Ajout de guerriers à la file d'attente
-chateau.ajouterAFile('nain');
+/*chateau.ajouterAFile('nain');
 chateau.ajouterAFile('elfe');
 chateau.ajouterAFile('chef nain');
 chateau.ajouterAFile('chef elfe');
@@ -24,4 +24,4 @@ for (let i = 0; i < 10; i++) {
     });
     
     console.log('-------------------------');
-}
+}*/
