@@ -29,43 +29,61 @@ class Plateau {
     
         this.carreaux = nouveauPlateau;
     }
-    
-    
+
+
     gererCombats() {
-        for (let i = 0; i < this.carreaux.length - 1; i++) {
-            if (this.carreaux[i] !== null && this.carreaux[i + 1] !== null && this.carreaux[i].equipe !== this.carreaux[i + 1].equipe) {
-                console.log('Combat sur le carreau ' + i + ' entre un ' + this.carreaux[i].type + ' de l\'équipe ' + this.carreaux[i].equipe + ' et un ' + this.carreaux[i + 1].type + ' de l\'équipe ' + this.carreaux[i + 1].equipe);
-                
-                // Les guerriers bleus attaquent en premier
-                if (this.carreaux[i].equipe === 'bleu') {
-                    let degats = this.carreaux[i].attaque();
-                    console.log('Le ' + this.carreaux[i].type + ' bleu attaque le ' + this.carreaux[i + 1].type + ' rouge et inflige ' + degats + ' dégâts');
-                    this.carreaux[i + 1].defense(degats);
-                    if (this.carreaux[i + 1].pv <= 0) {
-                        console.log('Le ' + this.carreaux[i + 1].type + ' rouge est mort');
-                        this.carreaux[i + 1] = null;
-                    } else {
-                        console.log('Le ' + this.carreaux[i + 1].type + ' rouge a survécu avec ' + this.carreaux[i + 1].pv + ' points de vie restants');
-                    }
-                }
+        let fileBleus = this.carreaux.filter(guerrier => guerrier !== null && guerrier.equipe === 'bleu');
+        let fileRouges = this.carreaux.filter(guerrier => guerrier !== null && guerrier.equipe === 'rouge');
     
-                // Ensuite, les guerriers rouges attaquent
-                if (this.carreaux[i + 1] !== null && this.carreaux[i].equipe === 'rouge') {
-                    let degats = this.carreaux[i].attaque();
-                    console.log('Le ' + this.carreaux[i].type + ' rouge attaque le ' + this.carreaux[i + 1].type + ' bleu et inflige ' + degats + ' dégâts');
-                    this.carreaux[i + 1].defense(degats);
-                    if (this.carreaux[i + 1].pv <= 0) {
-                        console.log('Le ' + this.carreaux[i + 1].type + ' bleu est mort');
-                        this.carreaux[i + 1] = null;
-                    } else {
-                        console.log('Le ' + this.carreaux[i + 1].type + ' bleu a survécu avec ' + this.carreaux[i + 1].pv + ' points de vie restants');
-                    }
-                }
+        // Phase d'attaque des guerriers bleus
+        while (fileBleus.length > 0 && fileRouges.length > 0) {
+            let guerrierBleu = fileBleus.shift();
+            let guerrierRouge = fileRouges[0]; // Le guerrier rouge qui est attaqué
+            let degats = guerrierBleu.attaque();
+            console.log('Le ' + guerrierBleu.type + ' bleu attaque le ' + guerrierRouge.type + ' rouge et inflige ' + degats + ' dégâts');
+            let estMort = guerrierRouge.defense(degats);
+            if (estMort) {
+                console.log('Le ' + guerrierRouge.type + ' rouge est mort');
+                fileRouges.shift(); // Retirer le guerrier rouge de la file s'il est mort
+            } else {
+                console.log('Le ' + guerrierRouge.type + ' rouge a survécu avec ' + guerrierRouge.pv + ' points de vie restants');
+            }
+            // Ajouter le guerrier bleu à la fin de la file s'il est toujours en vie
+            if (guerrierBleu.pv > 0) {
+                fileBleus.push(guerrierBleu);
+                let index = this.carreaux.findIndex(g => g === guerrierBleu);
+                this.carreaux.splice(index, 1); // Retirer le guerrier du carreau actuel
+                this.carreaux.push(guerrierBleu); // Ajouter le guerrier au dernier carreau
             }
         }
+    
+        // Phase d'attaque des guerriers rouges
+        while (fileRouges.length > 0 && fileBleus.length > 0) {
+            let guerrierRouge = fileRouges.shift();
+            let guerrierBleu = fileBleus[0]; // Le guerrier bleu qui est attaqué
+            let degats = guerrierRouge.attaque();
+            console.log('Le ' + guerrierRouge.type + ' rouge attaque le ' + guerrierBleu.type + ' bleu et inflige ' + degats + ' dégâts');
+            let estMort = guerrierBleu.defense(degats);
+            if (estMort) {
+                console.log('Le ' + guerrierBleu.type + ' bleu est mort');
+                fileBleus.shift(); // Retirer le guerrier bleu de la file s'il est mort
+            } else {
+                console.log('Le ' + guerrierBleu.type + ' bleu a survécu avec ' + guerrierBleu.pv + ' points de vie restants');
+            }
+            // Ajouter le guerrier rouge à la fin de la file s'il est toujours en vie
+            if (guerrierRouge.pv > 0) {
+                fileRouges.push(guerrierRouge);
+                let index = this.carreaux.findIndex(g => g === guerrierRouge);
+                this.carreaux.splice(index, 1); // Retirer le guerrier du carreau actuel
+                this.carreaux.unshift(guerrierRouge); // Ajouter le guerrier au premier carreau
+            }
+        }
+    
+        // Mettre à jour le plateau avec les guerriers restants
+        this.carreaux = [...fileBleus, ...fileRouges];
     }
     
-    
+     
     
     
     afficherPlateau() {
@@ -86,32 +104,24 @@ class Plateau {
     
 
 
-
     verifierVictoire() {
-        // Compter le nombre de guerriers vivants pour chaque équipe
-        let guerriersBleusVivants = 0;
-        let guerriersRougesVivants = 0;
-        for (let i = 0; i < this.carreaux.length; i++) {
-            if (this.carreaux[i] !== null) {
-                if (this.carreaux[i].equipe === 'bleu') {
-                    guerriersBleusVivants++;
-                } else if (this.carreaux[i].equipe === 'rouge') {
-                    guerriersRougesVivants++;
-                }
-            }
-        }
-    
-        // Vérifier si tous les guerriers d'une équipe sont morts
-        if (guerriersBleusVivants === 0) {
-            console.log('Les rouges gagnent');
-            return 'rouge';
-        } else if (guerriersRougesVivants === 0) {
+        // Vérifie si l'équipe bleue a atteint l'autre côté du plateau
+        if (this.carreaux[this.carreaux.length - 1] !== null && this.carreaux[this.carreaux.length - 1].equipe === 'bleu') {
             console.log('Les bleus gagnent');
             return 'bleu';
-        } else {
+        }
+        // Vérifie si l'équipe rouge a atteint l'autre côté du plateau
+        else if (this.carreaux[0] !== null && this.carreaux[0].equipe === 'rouge') {
+            console.log('Les rouges gagnent');
+            return 'rouge';
+        }
+        // Si aucune des équipes n'a atteint l'autre côté du plateau, le jeu continue
+        else {
             return null; // Le jeu continue
         }
     }
+    
+    
     
     
     

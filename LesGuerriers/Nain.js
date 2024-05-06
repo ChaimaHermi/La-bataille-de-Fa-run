@@ -4,8 +4,8 @@ class Nain extends Guerrier {
         this.cout = 1; // Coût d'entraînement pour un Nain
     }
 
-    defense(degats) {
-        super.defense(degats / 2);
+    RecevoirDegats(degats) {
+        super.RecevoirDegats(degats / 2);
     }
 }
 window.Nain = Nain;

@@ -15,7 +15,7 @@ class Guerrier {
         return degats;
     }
 
-    defense(degats) {
+    RecevoirDegats(degats) {
         this.pv -= degats;
         if (this.pv <= 0) {
             console.log('Le ' +this.equipe+ this.type + ' est mort');

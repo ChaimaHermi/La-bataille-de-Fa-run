@@ -1,4 +1,3 @@
-
 class ChefElfe extends Elfe {
     constructor(equipe) {
         super(equipe);
@@ -8,3 +7,4 @@ class ChefElfe extends Elfe {
 }
 
 window.ChefElfe = ChefElfe;
+

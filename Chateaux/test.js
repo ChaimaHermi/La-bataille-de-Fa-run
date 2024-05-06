@@ -1,27 +1,27 @@
-// Assurez-vous que les fichiers Guerrier.js, Nain.js, Elfe.js, ChefNain.js, ChefElfe.js et Chateau.js sont inclus avant ce fichier
+// Création d'un château
+let chateau = new Chateau('Bleu');
 
+// Ajout de guerriers à la file d'attente
+chateau.ajouterAFile('nain');
+chateau.ajouterAFile('elfe');
+chateau.ajouterAFile('chef nain');
+chateau.ajouterAFile('chef elfe');
 
-
-// Création des châteaux
-
-/*let chateauRouge = new window.Chateau();
-
-let chateauBleu = new window.Chateau();
-
-
-
-
-// Ajout des guerriers à la file d'attente d'entraînement
-chateauRouge.ajouterAFile('Nain');
-chateauRouge.ajouterAFile('Nain');
-
-chateauRouge.ajouterAFile('Elfe');
-
-chateauRouge.ajouterAFile('Elfe');
-
-// Simulation de plusieurs tours d'entraînement
-for (let i = 0; i < 4; i++) {
-    console.log('Tour ' + (i + 1) + ' : château possède ' + chateauRouge.ressources + ' ressources');
-    chateauRouge.tour();
-    console.log('Etat final : château ' + chateauRouge.ressources + ' ressources, ' + chateauRouge.GuerriersEntrainés.length + ' guerriers prêts à se battre');
-}*/
+// Simulation de plusieurs tours
+for (let i = 0; i < 10; i++) {
+    console.log('Tour ' + (i+1));
+    chateau.tour();
+    console.log('Ressources restantes : ' + chateau.ressources);
+    
+    console.log('Guerriers entraînés : ');
+    chateau.GuerriersEntraines.forEach(function(guerrier) {
+        console.log(guerrier.type);
+    });
+    
+    console.log('File d\'attente : ');
+    chateau.fileDAttente.forEach(function(type) {
+        console.log(type);
+    });
+    
+    console.log('-------------------------');
+}
