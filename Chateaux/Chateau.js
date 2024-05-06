@@ -42,10 +42,10 @@ class Chateau {
         }
     }
 
-    tour() {
-        while (this.fileDAttente.length > 0 && this.entrainement()) {
+    AjoutRessource() {
+      //  while (this.fileDAttente.length > 0 && this.entrainement()) {
             // Rien à faire ici, la boucle continue tant qu'il y a des guerriers à entraîner et des ressources disponibles
-        }
+       // }
         // Récupère une ressource
         this.ressources += 1;
     }

@@ -7,7 +7,7 @@ class Guerrier {
         this.cout = 1; // Coût d'entraînement pour un guerrier de base
     }
 
-    attaque() {
+    attaquer() {
         let degats = 0;
         for (let i = 0; i < this.force; i++) {
             degats += Math.floor(Math.random() * 3 + 1);
@@ -15,11 +15,12 @@ class Guerrier {
         return degats;
     }
 
-    RecevoirDegats(degats) {
+ recevoirDegats(degats) {
         this.pv -= degats;
         if (this.pv <= 0) {
-            console.log('Le ' +this.equipe+ this.type + ' est mort');
-        }
+            console.log('Le ' +this.type + ' est mort');
+
+       }
     }
 }
 window.Guerrier = Guerrier;

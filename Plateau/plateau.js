@@ -7,23 +7,20 @@ class Plateau {
     }
     
     avancement(listeB, listeR) {
-        if (listeB.length > 0) {
-            this.listeAvancementB.push({
-                liste: listeB,
-                position: 0
-            });
-            for(let i = 0; i < this.listeAvancementB.length; i++) { this.listeAvancementB[i].position++; }
-        }
-    
-        if (listeR.length > 0) {
-            this.listeAvancementR.push({
-                liste: listeR,
-                position: 6
-            });
-            for(let i = 0; i < this.listeAvancementR.length; i++) { this.listeAvancementR[i].position--; }
-        }
-    
-        // Eliminer la redondance dans la liste rouge
+        
+        this.listeAvancementB.push({
+            liste: listeB,
+            position: 0
+        })
+        for(let i = 0; i < this.listeAvancementB.length; i++) { this.listeAvancementB[i].position++; }
+
+        this.listeAvancementR.push({
+            liste: listeR,
+            position: 6
+        })
+        for(let i = 0; i < this.listeAvancementR.length; i++) { this.listeAvancementR[i].position--; }
+
+        // eliminer la redondance dans la liste rouge
         for (let i = 0; i < this.listeAvancementR.length - 1; i++) {
             for (let j = i + 1; j < this.listeAvancementR.length; j++) {
                 if (this.listeAvancementR[i].position === this.listeAvancementR[j].position) {
@@ -32,8 +29,8 @@ class Plateau {
                 }
             }
         }
-    
-        // Eliminer la redondance dans la liste bleu
+
+        // eliminer la redondance dans la liste bleu
         for (let i = 0; i < this.listeAvancementB.length - 1; i++) {
             for (let j = i + 1; j < this.listeAvancementB.length; j++) {
                 if (this.listeAvancementB[i].position === this.listeAvancementB[j].position) {
@@ -42,20 +39,20 @@ class Plateau {
                 }
             }
         }
-    
-        if (this.listeAvancementB[0]?.position == this.listeAvancementR[0]?.position) {
+
+        if (this.listeAvancementB[0].position == this.listeAvancementR[0].position) {
             this.carreaux[this.listeAvancementB[0].position].setGuerriersBleu(this.listeAvancementB[0].liste);
             this.carreaux[this.listeAvancementB[0].position].setGuerriersRouge(this.listeAvancementR[0].liste);
             let resultat = this.carreaux[this.listeAvancementB[0].position].bataille();
-    
+
             switch (resultat) {
                 case 1:
-                    console.log("team bleu won battle");
+                    console.log("equipe bleu a gagné le combat");
                     this.listeAvancementR.shift();
                     for(let i = 0; i < this.listeAvancementR.length; i++) { this.listeAvancementR[i].position++; }
                     break;
                 case 2:
-                    console.log("team rouge won battle");
+                    console.log("equipe rouge a gagné le combat");
                     this.listeAvancementB.shift();
                     for(let i = 0; i < this.listeAvancementB.length; i++) { this.listeAvancementB[i].position--; }
                     break;
@@ -63,19 +60,29 @@ class Plateau {
                     break;
             }
         }
-    
+
         console.log("liste B", this.listeAvancementB);
         console.log("liste R", this.listeAvancementR);
     }
-    
 
+
+
+
+
+
+    // Méthode pour vérifier s'il y a une victoire
     victoire() {
-        if (this.listeAvancementB[0]?.position > 5) {
-            console.log("bleu team won  the game");   
+        // Vérifier si les bleus ont gagné
+        if (this.listeAvancementB.some(avancement => avancement.position === 5)) {
+            return 'Les bleus ont gagné!';
         }
         
-        if (this.listeAvancementR[0]?.position < 1) {
-            console.log("red team won  the game");   
+        // Vérifier si les rouges ont gagné
+        if (this.listeAvancementR.some(avancement => avancement.position === 0)) {
+            return 'Les rouges ont gagné!';
         }
+        
+        // Si personne n'a encore gagné, retourner null
+        return null;
     }
 }
