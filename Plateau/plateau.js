@@ -1,10 +1,48 @@
 class Plateau {
-
     constructor() {
         this.carreaux = [ new Carreau(), new Carreau(), new Carreau(), new Carreau(), new Carreau(), new Carreau() ];
         this.listeAvancementB = []
         this.listeAvancementR = []
+
+        // Création dynamique des éléments <div> pour chaque carreau
+        this.carreaux.forEach((carreau, index) => {
+            const cellElement = document.createElement('div');
+            cellElement.classList.add('cell');
+            cellElement.dataset.index = index; // Ajoute un attribut data-index avec l'index du carreau
+            // Stocke une référence vers l'élément <div> dans l'instance de Carreau correspondante
+            carreau.element = cellElement;
+            // Ajoute l'élément <div> au plateau
+            document.querySelector('.Plateau').appendChild(cellElement);
+        });
     }
+
+
+    
+    afficherCarreaux() {
+        // Crée un nouvel élément <div> pour ce tour
+        const tourElement = document.createElement('div');
+        tourElement.classList.add('tour');
+
+        // Crée de nouveaux éléments <div> pour chaque carreau
+        this.carreaux.forEach((carreau, index) => {
+            const cellElement = document.createElement('div');
+            cellElement.classList.add('cell');
+            cellElement.dataset.index = index; // Ajoute un attribut data-index avec l'index du carreau
+            // Stocke une référence vers l'élément <div> dans l'instance de Carreau correspondante
+            carreau.element = cellElement;
+            // Ajoute l'élément <div> au tour
+            tourElement.appendChild(cellElement);
+        });
+
+        // Ajoute le tour à l'élément parent
+        document.querySelector('.Plateau').appendChild(tourElement);
+    }
+
+
+
+
+
+
     
     avancement(listeB, listeR) {
         
@@ -12,13 +50,21 @@ class Plateau {
             liste: listeB,
             position: 0
         })
-        for(let i = 0; i < this.listeAvancementB.length; i++) { this.listeAvancementB[i].position++; }
+        for(let i = 0; i < this.listeAvancementB.length; i++) {
+                 this.listeAvancementB[i].position++;
+           
+
+
+         }
 
         this.listeAvancementR.push({
             liste: listeR,
             position: 6
         })
-        for(let i = 0; i < this.listeAvancementR.length; i++) { this.listeAvancementR[i].position--; }
+        for(let i = 0; i < this.listeAvancementR.length; i++) {
+             this.listeAvancementR[i].position-- ;
+
+             }
 
         // eliminer la redondance dans la liste rouge
         for (let i = 0; i < this.listeAvancementR.length - 1; i++) {
