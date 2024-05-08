@@ -111,8 +111,8 @@ function MoteurManager() {
         let tour = 1;
         let resultat = null;
         let divGame = document.querySelector('.game'); // Sélection de la div avec la classe 'game'
-    
-        while ((chateauBleu.fileDAttente.length > 0 || chateauRouge.fileDAttente.length > 0) && resultat === null) {
+        
+        while (resultat === null) {
             console.log(`Tour ${tour}:`);
 
             
@@ -124,7 +124,7 @@ function MoteurManager() {
     
             // Avancement des guerriers sur le plateau
             plateau.avancement(chateauBleu.GuerriersEntraines, chateauRouge.GuerriersEntraines);
-    
+
             // Ajout des ressources à chaque tour
             chateauBleu.AjoutRessource();
             chateauRouge.AjoutRessource();
@@ -139,9 +139,10 @@ function MoteurManager() {
         divGame.appendChild(etatDuJeu);
     
             
-   // Affiche les carreaux pour ce tour
-   plateau.afficherCarreaux();
-            divGame.appendChild(etatDuJeu);
+
+
+            // Affiche les carreaux pour ce tour
+            plateau.afficherCarreaux();
     
             // Vérifie si une équipe a gagné
             resultat = plateau.victoire();
@@ -153,8 +154,8 @@ function MoteurManager() {
                 divGame.appendChild(h3);
                 break;
             }
-     
 
+            
 
             tour++;
         }

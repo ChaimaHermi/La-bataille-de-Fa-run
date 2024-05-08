@@ -1,21 +1,26 @@
 class Plateau {
     constructor() {
         this.carreaux = [ new Carreau(), new Carreau(), new Carreau(), new Carreau(), new Carreau(), new Carreau() ];
-        this.listeAvancementB = []
-        this.listeAvancementR = []
+ 
 
-        // Création dynamique des éléments <div> pour chaque carreau
-        this.carreaux.forEach((carreau, index) => {
-            const cellElement = document.createElement('div');
-            cellElement.classList.add('cell');
-            cellElement.dataset.index = index; // Ajoute un attribut data-index avec l'index du carreau
-            // Stocke une référence vers l'élément <div> dans l'instance de Carreau correspondante
-            carreau.element = cellElement;
-            // Ajoute l'élément <div> au plateau
-            document.querySelector('.Plateau').appendChild(cellElement);
-        });
+
+        // Affichage dans le html 
+             // Création dynamique des éléments <div> pour chaque carreau
+             this.carreaux.forEach((carreau, index) => {
+                const cellElement = document.createElement('div');
+                cellElement.classList.add('cell');
+                cellElement.dataset.index = index; // Ajoute un attribut data-index avec l'index du carreau
+                // Stocke une référence vers l'élément <div> dans l'instance de Carreau correspondante
+                carreau.element = cellElement;
+                // Ajoute l'élément <div> au plateau
+                document.querySelector('.Plateau').appendChild(cellElement);
+            });
+
     }
 
+
+    listeAvancementB = [];
+    listeAvancementR = []
 
     
     afficherCarreaux() {
@@ -38,97 +43,88 @@ class Plateau {
         document.querySelector('.Plateau').appendChild(tourElement);
     }
 
+   
 
 
-
-
-
-    
-    avancement(listeB, listeR) {
-        
-        this.listeAvancementB.push({
-            liste: listeB,
-            position: 0
-        })
+    avancement(listeB, listeR ) {
+        // Gestion de l'avancement pour l'équipe bleue
+        if (listeB.length > 0) {
+            this.listeAvancementB.push({
+                liste: listeB,
+                position: 0
+            });
+        }
         for(let i = 0; i < this.listeAvancementB.length; i++) {
-                 this.listeAvancementB[i].position++;
-           
-
-
-         }
-
-        this.listeAvancementR.push({
-            liste: listeR,
-            position: 6
-        })
+            this.listeAvancementB[i].position++;
+        }
+    
+        // Gestion de l'avancement pour l'équipe rouge
+        if (listeR.length > 0) {
+            this.listeAvancementR.push({
+                liste: listeR,
+                position: 6
+            });
+        }
         for(let i = 0; i < this.listeAvancementR.length; i++) {
-             this.listeAvancementR[i].position-- ;
-
-             }
-
-        // eliminer la redondance dans la liste rouge
-        for (let i = 0; i < this.listeAvancementR.length - 1; i++) {
-            for (let j = i + 1; j < this.listeAvancementR.length; j++) {
-                if (this.listeAvancementR[i].position === this.listeAvancementR[j].position) {
-                    this.listeAvancementR[i].liste = this.listeAvancementR[i].liste.concat(this.listeAvancementR[j].liste);
-                    this.listeAvancementR.splice(j, 1);
+            this.listeAvancementR[i].position--;
+        }
+    
+        this.listeAvancementB.forEach(avancement => {
+            avancement.liste.forEach(guerrier => {
+                let imgSrc;
+                switch (guerrier.type) {
+                    case 'Nain':
+                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/NainBleu.jpg';
+                        break;
+                    case 'ChefNain':
+                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ChefNainBleu.jpg';
+                        break;
+                    case 'Elfe':
+                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ElfBleu.jpg';
+                        break;
+                    case 'ChefElfe':
+                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ChefElfBleu.jpg';
+                        break;
                 }
-            }
-        }
-
-        // eliminer la redondance dans la liste bleu
-        for (let i = 0; i < this.listeAvancementB.length - 1; i++) {
-            for (let j = i + 1; j < this.listeAvancementB.length; j++) {
-                if (this.listeAvancementB[i].position === this.listeAvancementB[j].position) {
-                    this.listeAvancementB[i].liste = this.listeAvancementB[i].liste.concat(this.listeAvancementB[j].liste);
-                    this.listeAvancementB.splice(j, 1);
+             
+                this.carreaux[avancement.position].element.innerHTML += `<img src="${imgSrc}" alt="${guerrier.type}"><br>`;
+            });
+        });
+    
+        this.listeAvancementR.forEach(avancement => {
+            avancement.liste.forEach(guerrier => {
+                let imgSrc;
+                switch (guerrier.type) {
+                    case 'Nain':
+                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/NainRouge.jpg';
+                        break;
+                    case 'ChefNain':
+                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ChefNainRouge.jpg';
+                        break;
+                    case 'Elfe':
+                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ElfRouge.jpg';
+                        break;
+                    case 'ChefElfe':
+                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ChefElfRouge.jpg';
+                        break;
                 }
-            }
-        }
-
-        if (this.listeAvancementB[0].position == this.listeAvancementR[0].position) {
-            this.carreaux[this.listeAvancementB[0].position].setGuerriersBleu(this.listeAvancementB[0].liste);
-            this.carreaux[this.listeAvancementB[0].position].setGuerriersRouge(this.listeAvancementR[0].liste);
-            let resultat = this.carreaux[this.listeAvancementB[0].position].bataille();
-
-            switch (resultat) {
-                case 1:
-                    console.log("equipe bleu a gagné le combat");
-                    this.listeAvancementR.shift();
-                    for(let i = 0; i < this.listeAvancementR.length; i++) { this.listeAvancementR[i].position++; }
-                    break;
-                case 2:
-                    console.log("equipe rouge a gagné le combat");
-                    this.listeAvancementB.shift();
-                    for(let i = 0; i < this.listeAvancementB.length; i++) { this.listeAvancementB[i].position--; }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        console.log("liste B", this.listeAvancementB);
-        console.log("liste R", this.listeAvancementR);
+                this.carreaux[avancement.position].element.innerHTML += `<img src="${imgSrc}" alt="${guerrier.type}"><br>`;
+            });
+        });
     }
-
-
-
-
-
-
-    // Méthode pour vérifier s'il y a une victoire
+    
+ 
+    
+    
+    
+    
     victoire() {
-        // Vérifier si les bleus ont gagné
-        if (this.listeAvancementB.some(avancement => avancement.position === 5)) {
+        if (this.listeAvancementB.some(avancement => avancement.position === 5 )) {
             return 'Les bleus ont gagné!';
         }
-        
-        // Vérifier si les rouges ont gagné
-        if (this.listeAvancementR.some(avancement => avancement.position === 0)) {
+        if (this.listeAvancementR.some(avancement => avancement.position === 0 )) {
             return 'Les rouges ont gagné!';
         }
-        
-        // Si personne n'a encore gagné, retourner null
         return null;
     }
 }
