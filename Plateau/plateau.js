@@ -99,7 +99,7 @@ for(let i = 0; i < this.listeAvancementR.length; i++) {
                         break;
                 }
              
-                this.carreaux[avancement.position].element.innerHTML += `<img src="${imgSrc}" alt="${guerrier.type}"><br>`;
+                this.carreaux[avancement.position].element.innerHTML += `<img id ="imgC" src="${imgSrc}" alt="${guerrier.type}"><br>`;
             });
         });
     
@@ -120,7 +120,7 @@ for(let i = 0; i < this.listeAvancementR.length; i++) {
                         imgSrc = '../jeu java script/Assets/ChefElfRouge.jpg';
                         break;
                 }
-                this.carreaux[avancement.position].element.innerHTML += `<img src="${imgSrc}" alt="${guerrier.type}"><br>`;
+                this.carreaux[avancement.position].element.innerHTML += `<img src="${imgSrc}" id ="imgC"  alt="${guerrier.type}"><br>`;
             });
         });
     }

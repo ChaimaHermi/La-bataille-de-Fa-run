@@ -86,6 +86,20 @@ class Game {
     // ...
 }
 
+
+
+// function ajouterGuerriers(chateau) {
+//     let typesDeGuerriers = ['nain', 'chef nain', 'elfe', 'chef elfe'];
+
+//     typesDeGuerriers.forEach(type => {
+//         let nombre = prompt(`Entrez le nombre de ${type} que vous voulez ajouter au château ${chateau.couleur}:`);
+//         for(let i = 0; i < nombre; i++) {
+//             chateau.ajouterAFile(type);
+//         }
+//     });
+// }
+
+
 function MoteurManager() {
     // Création des châteaux
     let chateauBleu = new Chateau('bleu');
@@ -97,7 +111,14 @@ function MoteurManager() {
     // Création d'une instance de Game
     let game = new Game();
 
-    // Ajout des guerriers à la file d'attente
+
+    // ajouterGuerriers(chateauBleu);
+    // ajouterGuerriers(chateauRouge);
+
+
+   // Ajout des guerriers à la file d'attente
+    chateauBleu.ajouterAFile('chef nain');
+    chateauBleu.ajouterAFile('chef elfe');
     chateauBleu.ajouterAFile('nain');
     chateauBleu.ajouterAFile('elfe');
     chateauBleu.ajouterAFile('chef nain');
@@ -150,7 +171,7 @@ function MoteurManager() {
                 console.log(resultat);
                   // Création d'un nouvel élément HTML pour indiquer que le jeu est terminé
                 let h3 = document.createElement('h3');
-                h3.textContent = 'Le jeu est terminé !';
+                h3.textContent = 'Le jeu est terminé : ' + resultat ;
                 divGame.appendChild(h3);
                 break;
             }
