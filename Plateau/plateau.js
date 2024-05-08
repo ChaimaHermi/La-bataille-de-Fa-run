@@ -2,7 +2,7 @@ class Plateau {
     constructor() {
         this.carreaux = [ new Carreau(), new Carreau(), new Carreau(), new Carreau(), new Carreau(), new Carreau() ];
  
-
+      
 
         // Affichage dans le html 
              // Création dynamique des éléments <div> pour chaque carreau
@@ -19,10 +19,10 @@ class Plateau {
     }
 
 
+      
     listeAvancementB = [];
     listeAvancementR = []
 
-    
     afficherCarreaux() {
         // Crée un nouvel élément <div> pour ce tour
         const tourElement = document.createElement('div');
@@ -47,43 +47,55 @@ class Plateau {
 
 
     avancement(listeB, listeR ) {
-        // Gestion de l'avancement pour l'équipe bleue
-        if (listeB.length > 0) {
-            this.listeAvancementB.push({
-                liste: listeB,
-                position: 0
-            });
-        }
-        for(let i = 0; i < this.listeAvancementB.length; i++) {
-            this.listeAvancementB[i].position++;
-        }
-    
-        // Gestion de l'avancement pour l'équipe rouge
-        if (listeR.length > 0) {
-            this.listeAvancementR.push({
-                liste: listeR,
-                position: 6
-            });
-        }
-        for(let i = 0; i < this.listeAvancementR.length; i++) {
-            this.listeAvancementR[i].position--;
-        }
+   // Gestion de l'avancement pour l'équipe bleue
+   if (listeB.length > 0) {
+    this.listeAvancementB.push({
+        liste: listeB,
+        position: 0
+    });
+}
+for(let i = 0; i < this.listeAvancementB.length; i++) {
+    //Supprime le guerrier de la position précédente
+   
+
+    if (i > 0) {
+        this.listeAvancementB[i].liste = [];
+    }
+    this.listeAvancementB[i].position++;
+}
+
+// Gestion de l'avancement pour l'équipe rouge
+if (listeR.length > 0) {
+    this.listeAvancementR.push({
+        liste: listeR,
+        position: 6
+    });
+}
+for(let i = 0; i < this.listeAvancementR.length; i++) {
+    // Supprime le guerrier de la position précédente
+    if (i < this.listeAvancementR.length - 1) {
+        this.listeAvancementR[i + 1].liste = [];
+    }
+    this.listeAvancementR[i].position--;
+}       
+
+
     
         this.listeAvancementB.forEach(avancement => {
             avancement.liste.forEach(guerrier => {
                 let imgSrc;
                 switch (guerrier.type) {
                     case 'Nain':
-                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/NainBleu.jpg';
+                        imgSrc = '../jeu java script/Assets/NainBleu.jpg';
                         break;
                     case 'ChefNain':
-                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ChefNainBleu.jpg';
+                        imgSrc = '../jeu java script/Assets/ChefNainBleu.jpg';
                         break;
                     case 'Elfe':
-                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ElfBleu.jpg';
+                        imgSrc = '../jeu java script/Assets/ElfBleu.jpg';
                         break;
                     case 'ChefElfe':
-                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ChefElfBleu.jpg';
+                        imgSrc = '../jeu java script/Assets/ChefElfBleu.jpg';
                         break;
                 }
              
@@ -96,16 +108,16 @@ class Plateau {
                 let imgSrc;
                 switch (guerrier.type) {
                     case 'Nain':
-                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/NainRouge.jpg';
+                        imgSrc = '../jeu java script/Assets/NainRouge.jpg';
                         break;
                     case 'ChefNain':
-                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ChefNainRouge.jpg';
+                        imgSrc = '../jeu java script/Assets/ChefNainRouge.jpg';
                         break;
                     case 'Elfe':
-                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ElfRouge.jpg';
+                        imgSrc = '../jeu java script/Assets/ElfRouge.jpg';
                         break;
                     case 'ChefElfe':
-                        imgSrc = 'C:/Users/dell/Desktop/Mes Projets dev/jeu java script/Assets/ChefElfRouge.jpg';
+                        imgSrc = '../jeu java script/Assets/ChefElfRouge.jpg';
                         break;
                 }
                 this.carreaux[avancement.position].element.innerHTML += `<img src="${imgSrc}" alt="${guerrier.type}"><br>`;

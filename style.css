@@ -9,7 +9,7 @@ html {
 body {
 min-height : 100vh;
 margin : 0;
-background-image: url("C:\\Users\\dell\\Desktop\\Mes Projets dev\\jeu java script\\Assets\\background.jpg");
+background-image: url("../jeu java script/Assets/background.jpg");
 background-size: cover;
 background-attachment : fixed;
 background-repeat: no-repeat;
