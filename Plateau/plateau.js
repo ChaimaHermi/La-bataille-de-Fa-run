@@ -80,6 +80,27 @@ for(let i = 0; i < this.listeAvancementR.length; i++) {
 }       
 
 
+// Après avoir mis à jour les positions des guerriers
+this.listeAvancementB.forEach(avancementB => {
+    this.listeAvancementR.forEach(avancementR => {
+        if (avancementB.position === avancementR.position) {
+            // Les guerriers bleus et rouges sont sur le même carreau
+            this.carreaux[avancementB.position].setGuerriersBleu(avancementB.liste);
+            this.carreaux[avancementR.position].setGuerriersRouge(avancementR.liste);
+            let resultat = this.carreaux[avancementB.position].bataille();
+            if (resultat === 1) {
+                console.log('L\'équipe bleue a gagné la bataille');
+                // Supprimer tous les guerriers rouges de ce carreau
+                avancementR.liste = [];
+            } else if (resultat === 2) {
+                console.log('L\'équipe rouge a gagné la bataille');
+                // Supprimer tous les guerriers bleus de ce carreau
+                avancementB.liste = [];
+            }
+        }
+    });
+});
+
     
         this.listeAvancementB.forEach(avancement => {
             avancement.liste.forEach(guerrier => {
@@ -131,12 +152,13 @@ for(let i = 0; i < this.listeAvancementR.length; i++) {
     
     
     victoire() {
-        if (this.listeAvancementB.some(avancement => avancement.position === 5 )) {
+        if (this.listeAvancementB.some(avancement => avancement.position === 5 && avancement.liste.length > 0)) {
             return 'Les bleus ont gagné!';
         }
-        if (this.listeAvancementR.some(avancement => avancement.position === 0 )) {
+        if (this.listeAvancementR.some(avancement => avancement.position === 0 && avancement.liste.length > 0)) {
             return 'Les rouges ont gagné!';
         }
         return null;
     }
+    
 }

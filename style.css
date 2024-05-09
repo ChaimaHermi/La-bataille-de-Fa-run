@@ -184,3 +184,22 @@ height: auto;
 .alertCheckbox {
   display: none;
 }
+
+
+.element {
+ font-size: 20px;
+}
+
+
+
+.progress-bar {
+  width: 100%;
+  background-color: #4e4e50;
+  border-radius: 5px;
+}
+
+.progress {
+  height: 10px;
+  border-radius: 5px;
+  padding-left: 2px;
+}

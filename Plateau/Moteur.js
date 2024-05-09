@@ -125,9 +125,9 @@ function MoteurManager() {
     chateauBleu.ajouterAFile('chef elfe');
 
     chateauRouge.ajouterAFile('nain');
-    chateauRouge.ajouterAFile('elfe');
-    chateauRouge.ajouterAFile('chef nain');
-    chateauRouge.ajouterAFile('chef elfe');
+    // chateauRouge.ajouterAFile('elfe');
+    // chateauRouge.ajouterAFile('chef nain');
+    // chateauRouge.ajouterAFile('chef elfe');
 
         let tour = 1;
         let resultat = null;
@@ -170,7 +170,7 @@ function MoteurManager() {
             if (resultat !== null) {
                 console.log(resultat);
                   // Création d'un nouvel élément HTML pour indiquer que le jeu est terminé
-                let h3 = document.createElement('h3');
+                let h3 = document.createElement('h2');
                 h3.textContent = 'Le jeu est terminé : ' + resultat ;
                 divGame.appendChild(h3);
                 break;
