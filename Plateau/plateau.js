@@ -137,6 +137,9 @@ for(let i = 0; i < this.listeAvancementR.length; i++) {
         if (this.listeAvancementR.some(avancement => avancement.position === 0 )) {
             return 'Les rouges ont gagné!';
         }
-        return null;
+        return null; 
     }
 }
+
+
+//chhhhhh
